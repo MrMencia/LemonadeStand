@@ -11,6 +11,7 @@ namespace LemonadeStand
             game.RunGame();
 
             Console.ReadKey();
+
             /*
             Weather weather;
             weather = new Weather();

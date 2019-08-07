@@ -22,8 +22,8 @@ namespace LemonadeStand
             weather = new Weather();
             condition = null;
             temperature = 0;
-            customer = new List<Customer>
-            daysYourePlaying = new List<int>() { 1, 2, 3, 4, 5 };
+            customer = new List<Customer>();
+            daysYourePlaying = new List<int>() { 1, 2, 3, 4, 5,6,7};
         }
 
 

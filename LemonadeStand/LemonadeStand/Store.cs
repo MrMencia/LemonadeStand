@@ -10,6 +10,12 @@ namespace LemonadeStand
         public string viewInventory;
         public string viewForecast;
 
+        public double lemonPrice;
+        public double cupPrice;
+        public double icePrice;
+        public double lemonadePrice;
+        public double sugarPrice;
+
 
 
 
@@ -21,14 +27,129 @@ namespace LemonadeStand
             viewInventory = null;
             viewForecast = null;
 
+
+            lemonPrice = .10;
+            cupPrice = .05;
+            icePrice = .02;
+            sugarPrice = .01;
+            lemonadePrice = .50;
+
+
         }
 
 
 
 
-
-
         //Methods
+
+        // (This equation calculates the purchase of items. For the below example, it increases the inventory and decreases the amount of cash you have!)
+
+        public void SellLemons(Player player)
+
+        {
+            Console.WriteLine("How many lemons would you like to purchase?");
+            int lemons = int.Parse(Console.ReadLine());
+            double cost = lemons * lemonPrice;
+
+            if (player.inventory.cash >= cost)
+            {
+                player.inventory.Lemons += lemons;
+
+                player.inventory.cash -= cost;
+            }
+
+            else
+            {
+                Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+            }
+
+        }
+
+        public void SellCups(Player player)
+
+        {
+            Console.WriteLine("How many Cups would you like to purchase?");
+            int Cups = int.Parse(Console.ReadLine());
+            double cost = Cups * cupPrice;
+
+            if (player.inventory.cash >= cost)
+            {
+                player.inventory.Cups += Cups;
+
+                player.inventory.cash -= cost;
+            }
+
+            else
+            {
+                Console.WriteLine("You dont have enough money man! Buy what you can afford!");
+            }
+
+        }
+        public void SellIce(Player player)
+
+        {
+            Console.WriteLine("How many ice cubes would you like to purchase?");
+            int Ice = int.Parse(Console.ReadLine());
+            double cost = Ice * icePrice;
+
+            if (player.inventory.cash >= cost)
+            {
+                player.inventory.Ice += Ice;
+
+                player.inventory.cash -= cost;
+            }
+
+            else
+            {
+                Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+            }
+
+        }
+
+
+            public void SellSugar(Player player)
+
+            {
+                Console.WriteLine("How much sugar would you like to purchase?");
+                int Sugar = int.Parse(Console.ReadLine());
+                double cost = Sugar * icePrice;
+
+                if (player.inventory.cash >= cost)
+                {
+                    player.inventory.Sugar += Sugar;
+
+                    player.inventory.cash -= cost;
+                }
+
+                else
+                {
+                    Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+                }
+            
+
+            }
+
+        public void SellLemonade(Player player)
+
+        {
+            Console.WriteLine("Lets get this money! :) ");
+            int Lemonade = int.Parse(Console.ReadLine());
+            double cost = Lemonade * icePrice;
+
+            if (player.inventory.cash >= cost)
+            {
+                player.inventory.Sugar += Lemonade;
+
+                player.inventory.cash -= cost;
+            }
+
+            else
+            {
+                Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+            }
+
+
+        }
 
         public void showMenuItems() //Method for Showing Menu
         {
@@ -36,7 +157,7 @@ namespace LemonadeStand
             while (storeMenuItems)
 
             {
-                Console.WriteLine("What would you like to Purchase?:\n Choose one:\n\n To Buy Paper Cups?\n enter Cups\n Buy Lemons?\n enter Lemons\n Buy Cups of Sugar?\n enter Sugar\n Buy Ice Cubes\n enter Ice ");
+                Console.WriteLine("What would you like to Purchase?:\n Choose one:\n\nTo Buy Paper Cups?\n enter ->Cups<-\n Buy Lemons?\n enter ->Lemons<-\n Buy Cups of Sugar?\n enter ->Sugar<-\n Buy Ice Cubes\n enter ->Ice<- ");
                 String option = Console.ReadLine();
 
                 switch (option)

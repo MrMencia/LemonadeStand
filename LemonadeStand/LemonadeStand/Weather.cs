@@ -6,6 +6,7 @@ namespace LemonadeStand
     public class Weather
     {
 
+
         //member variables
 
         public string condition;
@@ -36,6 +37,8 @@ namespace LemonadeStand
             condition = weatherTypes[randomNumber];
 
         }
+
+
         public void GenerateTemperature()
         {
             Random rand = new Random();
@@ -44,7 +47,7 @@ namespace LemonadeStand
 
             if(condition == "Sunny")
             {
-                temperature = rand.Next(80, 98);
+                temperature = rand.Next(80, 100);
 
                 Console.WriteLine("Today is Sunny with a temperature of" + temperature);
             }
