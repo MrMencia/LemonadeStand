@@ -29,5 +29,11 @@ namespace LemonadeStand
 
 
         //Methods
+
+        public void DisplayInventory()
+        {
+            Console.WriteLine("Here are the ingredients to choose from:" + Lemons + "Lemons" + Cups + "Cups" + Ice + "Ice" + Sugar + "Sugar");
+
+        }
     }
 }

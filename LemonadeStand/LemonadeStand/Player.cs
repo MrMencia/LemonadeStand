@@ -21,8 +21,6 @@ namespace LemonadeStand
 
 
 
-
-
         //Methods
     }
 }

@@ -47,10 +47,11 @@ namespace LemonadeStand
         public void SellLemons(Player player)
 
         {
+            Console.WriteLine("Your current money is: " + player.inventory.cash);
             Console.WriteLine("How many lemons would you like to purchase?");
             int lemons = int.Parse(Console.ReadLine());
             double cost = lemons * lemonPrice;
-
+            Console.WriteLine("This costs: " + cost);
             if (player.inventory.cash >= cost)
             {
                 player.inventory.Lemons += lemons;
@@ -68,6 +69,7 @@ namespace LemonadeStand
         public void SellCups(Player player)
 
         {
+            Console.WriteLine("Your current money is: " + player.inventory.cash);
             Console.WriteLine("How many Cups would you like to purchase?");
             int Cups = int.Parse(Console.ReadLine());
             double cost = Cups * cupPrice;
@@ -82,12 +84,14 @@ namespace LemonadeStand
             else
             {
                 Console.WriteLine("You dont have enough money man! Buy what you can afford!");
+                SellCups(player);
             }
 
         }
         public void SellIce(Player player)
 
         {
+            Console.WriteLine("Your current money is: " + player.inventory.cash);
             Console.WriteLine("How many ice cubes would you like to purchase?");
             int Ice = int.Parse(Console.ReadLine());
             double cost = Ice * icePrice;
@@ -102,6 +106,7 @@ namespace LemonadeStand
             else
             {
                 Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+                SellIce(player);
             }
 
         }
@@ -110,7 +115,8 @@ namespace LemonadeStand
             public void SellSugar(Player player)
 
             {
-                Console.WriteLine("How much sugar would you like to purchase?");
+            Console.WriteLine("Your current money is: " + player.inventory.cash);
+            Console.WriteLine("How much sugar would you like to purchase?");
                 int Sugar = int.Parse(Console.ReadLine());
                 double cost = Sugar * icePrice;
 
@@ -124,6 +130,7 @@ namespace LemonadeStand
                 else
                 {
                     Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+                SellSugar(player);
                 }
             
 
@@ -132,6 +139,7 @@ namespace LemonadeStand
         public void SellLemonade(Player player)
 
         {
+            Console.WriteLine("Your current money is: " + player.inventory.cash);
             Console.WriteLine("Lets get this money! :) ");
             int Lemonade = int.Parse(Console.ReadLine());
             double cost = Lemonade * icePrice;
@@ -146,6 +154,7 @@ namespace LemonadeStand
             else
             {
                 Console.WriteLine("You dont have enough money man! Buy what you can afford! ");
+                SellLemonade(player);
             }
 
 
@@ -154,10 +163,11 @@ namespace LemonadeStand
         public void showMenuItems() //Method for Showing Menu
         {
             bool storeMenuItems = true;
+
             while (storeMenuItems)
 
             {
-                Console.WriteLine("What would you like to Purchase?:\n Choose one:\n\nTo Buy Paper Cups?\n enter ->Cups<-\n Buy Lemons?\n enter ->Lemons<-\n Buy Cups of Sugar?\n enter ->Sugar<-\n Buy Ice Cubes\n enter ->Ice<- ");
+                Console.WriteLine("What would you like to Purchase?:\n Choose one:\n\nTo Buy Paper Cups?\n enter -> Cups <-\n Buy Lemons?\n enter -> Lemons <-\n Buy Cups of Sugar?\n enter -> Sugar <-\n Buy Ice Cubes\n enter -> Ice <-\n\nTo go back and see other options, enter -> back <- ");
                 String option = Console.ReadLine();
 
                 switch (option)
@@ -192,6 +202,7 @@ namespace LemonadeStand
                  case "Back":
                 
                         Console.WriteLine("Please enter Back to go back to the Main Menu");
+                        storeMenuItems = false;
                     break;
 
                     default:
