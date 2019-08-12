@@ -34,26 +34,29 @@ namespace LemonadeStand
         public void RunGame() // Master Method to run the whole Game!
         {
             DisplayRules(); //1
-            GenerateDays(); //2
+
+            GenerateDays(); //
+
+
             for (int i = 0; i < days.Count; i++)  //3
             {
                 ShowGameMenu(days[i]);
 
             }
 
-            store.SellLemons(player); //4
-            store.SellCups(player);  //5
-            store.SellIce(player); //6
-            store.SellSugar(player); //7
-            store.SellLemonade(player); //8
+
+            Console.Clear();
+
+            SetInitialSupplies();
+
+
             Console.ReadLine();
 
 
 
         }
 
-      
-        
+
 
 
 
@@ -64,18 +67,37 @@ namespace LemonadeStand
         }
 
 
-    public void GenerateDays()
+        public void GenerateDays()
 
-    {
-            Console.WriteLine("How many days would you like to play for? Enter the number of days.");
-            int numberOfDaysPlayed = int.Parse (Console.ReadLine());
-            
-        for (int i = 0; i < numberOfDaysPlayed; i++)
         {
-            Day day = new Day();
-            days.Add(day);
+            Console.WriteLine("How many days would you like to play for? Enter the number of days.");
+            int numberOfDaysPlayed = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numberOfDaysPlayed; i++)
+            {
+                Day day = new Day();
+                days.Add(day);
+            }
         }
-    }
+
+        public void SetInitialSupplies()
+
+        {
+            store.SellLemons(player);
+            store.SellCups(player);
+            store.SellIce(player);
+            store.SellSugar(player);
+            store.SellLemonade(player);
+
+        }
+
+
+
+
+
+
+
+
         public void ShowGameMenu(Day day) //Method for Showing Menu
         {
             bool menuItem = true;
@@ -89,8 +111,8 @@ namespace LemonadeStand
                 switch (option)
 
                 {
-                    case "Inventory": 
-                        
+                    case "Inventory":
+
                         Console.WriteLine("Here are your options of what to purchase:\n\n To Purchase 10 Lemons for a $1, enter -> lemons <-\n\n To Purchase 20 cups for a $1, enter -> Cups <-\n\n To Purchase 50 cubes of Ice for $1, enter -> Ice <-\n\nIf you would like to purchase 100 packets of sugar for $1, enter -> sugar <-\n\n\n**** REMEMBER TO CHECK YOUR FORECAST! THE WEATHER DOES AFFECT HOW MUCH YOU SELL!****");
                         Console.ReadLine();
                         player.inventory.DisplayInventory();
@@ -133,6 +155,7 @@ namespace LemonadeStand
         }
     }
 }
+
         
     
     
