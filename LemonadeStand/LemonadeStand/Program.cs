@@ -10,7 +10,7 @@ namespace LemonadeStand
             Game game = new Game();
             game.RunGame();
 
-            Console.ReadKey();
+            
 
             /*
             Weather weather;

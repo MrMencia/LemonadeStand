@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
 
 namespace LemonadeStand
 {
@@ -8,151 +14,206 @@ namespace LemonadeStand
     {
         //Member Variables (Has A....)
 
-        Day day = new Day();
-
-        List<Day> days;
-
-        int numberOfDaysPlayed;
-
-        private object userInput;
-
-        Player player = new Player();
-
+        public Player player1;
+        public int dayCounter;
+        public List<Day> days;
+        private double cupCharge;
+        Random random = new Random();
+        public int totalDays;
+        private List<Customer> servedTemperature;
+        private List<Customer> served;
+        private int cupsLemonade;
         Store store = new Store();
 
-
-
-        //Constructor (Creator)
+        //construct
         public Game()
         {
+            dayCounter = 1;
+        }
+        //methods
+
+        public List<Day> GenerateDays()
+        {
             days = new List<Day>();
-            numberOfDaysPlayed = 7;
-        }
-
-        //Methods
-
-        public void RunGame() // Master Method to run the whole Game!
-        {
-            DisplayRules(); //1
-
-            GenerateDays(); //
-
-
-            for (int i = 0; i < days.Count; i++)  //3
+            for (int i = 1; i <= totalDays; i++)
             {
-                ShowGameMenu(days[i]);
-
+                days.Add(new Day(random));
             }
-
-
-            Console.Clear();
-
-            SetInitialSupplies();
-
-
+            return days;
+        }
+        public void RunGame()
+        {
+            Console.WriteLine("Your Lemonade Stand starts with $20.\nYou are able to purchase new supplies and ingredients each day before selling.\nCustomers will decide whether they want to buy your product based on various circumstances.\nYou will have the option to buy and sell each day for as many days as you would like, up to 30, to maximize profits.\nEach pitcher of lemonade yields 5 cups, and ingredients are used to make as many pitchers possible each day.\nSpend your money and craft your pitchers wisely!");
+            player1 = new Player();
             Console.ReadLine();
-
-
-
-        }
-
-
-
-
-
-        public void DisplayRules()
-        {
-            Console.WriteLine("Here are the Rules!:\n\n");
-            Console.WriteLine("You have 7 days to make as much money as possible, and you’ve decided to open a lemonade stand! You’ll have complete control over your business, including pricing, quality control, inventory control, and purchasing supplies. Buy your ingredients, set your recipe, and start selling!\n\nThe first thing you’ll have to worry about is your recipe. At first, go with the default recipe, but try to experiment a little bit and see if you can find a better one.Make sure you buy enough of all your ingredients, or you won’t be able to sell! \n\nYou’ll also have to deal with the weather, which will play a big part when customers are deciding whether or not to buy your lemonade. Read the weather report every day!When the temperature drops, or the weather turns bad(overcast, cloudy, rain), don’t expect them to buy nearly as much as they would on a hot, hazy day, so buy accordingly.Feel free to set your prices higher on those hot, muggy days too, as you’ll make more profit, even if you sell a bit less lemonade.\n\nThe other major factor which comes into play is your customer’s satisfaction. As you sell your lemonade, people will decide how much they like or dislike it.  This will make your business more or less popular.If your popularity is low, fewer people will want to buy your lemonade, even if the weather is hot and sunny.But if you’re popularity is high, you’ll do okay, even on a rainy day!\n\nAt the end of day 7, you’ll see how much money you made.Play again, and try to beat your high score!\n\n\n");
-        }
-
-
-        public void GenerateDays()
-
-        {
-            Console.WriteLine("How many days would you like to play for? Enter the number of days.");
-            int numberOfDaysPlayed = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < numberOfDaysPlayed; i++)
+            player1.ChooseName();
+            PromptDays();
+            GenerateDays();
+            while (dayCounter <= totalDays)
             {
-                Day day = new Day();
-                days.Add(day);
-            }
-        }
-
-        public void SetInitialSupplies()
-
-        {
-            store.SellLemons(player);
-            store.SellCups(player);
-            store.SellIce(player);
-            store.SellSugar(player);
-            store.SellLemonade(player);
-
-        }
-
-
-
-
-
-
-
-
-        public void ShowGameMenu(Day day) //Method for Showing Menu
-        {
-            bool menuItem = true;
-
-            while (menuItem)
-
-            {
-                Console.WriteLine("Where would you like to go?:\n\n Choose one:\n\n To purchase Inventory, enter -> Inventory <-\nTo go to store? If so, enter -> Store <- \nWould you like to view the forecast for the day? If so, enter -> Forecast <- \nIf you're ready to sell that delicious lemonade, enter -> Sell <-");
-                String option = Console.ReadLine();
-
-                switch (option)
-
+                if (store.inventory.lemons == 0 && store.inventory.moneyCounter < store.lemonPrice)
                 {
-                    case "Inventory":
-
-                        Console.WriteLine("Here are your options of what to purchase:\n\n To Purchase 10 Lemons for a $1, enter -> lemons <-\n\n To Purchase 20 cups for a $1, enter -> Cups <-\n\n To Purchase 50 cubes of Ice for $1, enter -> Ice <-\n\nIf you would like to purchase 100 packets of sugar for $1, enter -> sugar <-\n\n\n**** REMEMBER TO CHECK YOUR FORECAST! THE WEATHER DOES AFFECT HOW MUCH YOU SELL!****");
-                        Console.ReadLine();
-                        player.inventory.DisplayInventory();
-                        break;
-
-                    case "Store":
-
-                        Console.WriteLine("What Items would you like to purchase?\n\n To buy 10 lemons for a $1, enter -> lemons <-\n\nTo buy 20 cups for a $1 enter -> cups <-\n\n To buy 50 cubes of ice for a $1, enter -> ice <-\n\nTobuy");
-                        Console.ReadLine();
-                        store.showMenuItems();
-                        //Genrate how many lemons they would like to purchase and for how much.....
-                        break;
-
-                    case "Forecast":
-
-                        Console.WriteLine("Today is: " + day.weather.temperature + " " + day.weather.condition);
-                        //Genereate the forecast for the day....
-                        break;
-
-                    case "Sell":
-
-                        Console.WriteLine("Good Luck!");
-                        store.SellLemonade(player);
-                        //Generate how many cubes of ice you would like to purchase.....
-                        break;
-
-
-
-                    case "Back":
-
-                        Console.WriteLine("Please enter Back to go back to the Main Menu");
-                        break;
-
-                    default:
-                        break;
-
+                    UserInterface.OutOfMoney(store);
+                    return;
                 }
+                else if (store.inventory.sugar == 0 && store.inventory.moneyCounter < store.sugarPrice)
+                {
+                    UserInterface.OutOfMoney(store);
+                    return;
+                }
+                else if (store.inventory.iceCubes == 0 && store.inventory.moneyCounter < store.icePrice)
+                {
+                    UserInterface.OutOfMoney(store);
+                    return;
+                }
+                else if (store.inventory.cups == 0 && store.inventory.moneyCounter < store.cupPrice)
+                {
+                    UserInterface.OutOfMoney(store);
+                    return;
+                }
+                else
+                {
+                    servedTemperature = new List<Customer>();
+                    served = new List<Customer>();
+                    UserInterface.BeginDay(store.inventory, player1);
+                    GenerateForecast();
+                    Console.Clear();
+                    UserInterface.TodayWeather(days[dayCounter - 1]);
 
+                    UserInterface.AskToSell(this);
+
+                    UserInterface.DisplayInventory(store.inventory);
+                    store.PurchaseSugar();
+                    UserInterface.DisplayInventory(store.inventory);
+                    store.PurchaseLemons();
+                    UserInterface.DisplayInventory(store.inventory);
+                    store.PurchaseIce();
+                    UserInterface.DisplayInventory(store.inventory);
+                    store.PurchaseCups();
+                    UserInterface.DisplayInventory(store.inventory);
+                    Console.Clear();
+                    UserInterface.DisplayInventory(store.inventory);
+                    store.inventory.PlanPitchersSugar();
+                    store.inventory.PlanPitchersLemon();
+                    store.inventory.PlanPitchersIce();
+                    Console.Clear();
+                    GetCupCharge();
+                    store.inventory.MakePitchers();
+                    Console.WriteLine("Made " + store.inventory.pitcherCounter + " pitchers.");
+                    Console.ReadLine();
+                    cupsLemonade = store.inventory.pitcherCounter * 5;
+                    Console.WriteLine("Made " + cupsLemonade + " cups.");
+                    if (store.inventory.lemonsPerPitcher == 0)
+                    {
+                        Console.WriteLine("Nobody wanted lemonade with no lemons!");
+                        UserInterface.EndDay(store.inventory);
+                    }
+                    else if (store.inventory.sugarPerPitcher == 0)
+                    {
+                        Console.WriteLine("Nobody wanted lemonade with no sugar in it!");
+                        UserInterface.EndDay(store.inventory);
+                    }
+                    else if (store.inventory.iceCubesPerPitcher == 0)
+                    {
+                        Console.WriteLine("Your lemonade was warm and gross with no ice in it!");
+                        UserInterface.EndDay(store.inventory);
+                    }
+                    else
+                    {
+                        Console.ReadLine();
+                        customersServedTemperature(days[dayCounter - 1].customers, days[dayCounter - 1].weather.temperature);
+                        for (int i = 0; i < servedTemperature.Count; i++)
+                        {
+                            customersServed(servedTemperature, servedTemperature[i].availableCash);
+                        }
+                        if (served.Count > cupsLemonade)
+                        {
+                            Console.WriteLine("You ran out of lemonade before the end of the day.");
+                            store.inventory.moneyCounter += cupsLemonade * cupCharge;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Out of the " + (cupsLemonade) + " cups of lemonade you made, you served " + served.Count + " customers!");
+                            store.inventory.moneyCounter += served.Count * cupCharge;
+                        }
+                        UserInterface.EndDay(store.inventory);
+                    }
+                }
+                FinishDay();
             }
+            UserInterface.EndGame(store.inventory, player1);
         }
+        List<Customer> customersServedTemperature(List<Customer> customers, int temperature)
+        {
+            servedTemperature = new List<Customer>();
+            foreach (var customer in customers)
+            {
+                if (customer.temperatureThreshold <= temperature)
+                {
+                    servedTemperature.Add(customer);
+                }
+            }
+            return servedTemperature;
+        }
+        List<Customer> customersServed(List<Customer> servedTemperature, double availableCash)
+        {
+            served = new List<Customer>();
+            foreach (var customer in servedTemperature)
+            {
+                if (customer.availableCash <= cupCharge)
+                {
+                    served.Add(customer);
+                }
+            }
+            return served;
+        }
+        public void GenerateForecast()
+        {
+            if ((totalDays - dayCounter) - 7 >= 0)
+            {
+                for (int i = dayCounter - 1; i <= dayCounter + 5; i++)
+                {
+                    Console.WriteLine(days[i].weather.temperature + " " + days[i].weather.condition);
+                }
+            }
+            else
+            {
+                for (int i = dayCounter - 1; i <= totalDays - 1; i++)
+                {
+                    Console.WriteLine(days[i].weather.temperature + " " + days[i].weather.condition);
+                }
+            }
+            Console.ReadLine();
+        }
+        public double GetCupCharge()
+        {
+            Console.WriteLine("You are done buying supplies and making pitchers for today. How much would you like to charge per cup of lemonade in cents?");
+            while (double.TryParse(Console.ReadLine(), out cupCharge))
+            {
+                cupCharge *= 0.01;
+                return (cupCharge);
+            }
+            return GetCupCharge();
+        }
+        private int PromptDays()
+        {
+            Console.WriteLine("How many days (max: 30) will your stand be open?");
+            while (int.TryParse(Console.ReadLine(), out totalDays) && totalDays <= 30 && totalDays > 0)
+            {
+                return totalDays;
+            }
+            Console.WriteLine("Please choose a number of days between 1 and 30");
+            return PromptDays();
+        }
+        public void FinishDay()
+        {
+            store.inventory.pitcherCounter = 0;
+            cupsLemonade = 0;
+            store.inventory.iceCubes = 0;
+            dayCounter++;
+        }
+
+
     }
 }
 

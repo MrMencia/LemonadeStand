@@ -3,37 +3,69 @@ namespace LemonadeStand
 {
     public class Inventory
     {
-        //Member Variables (Has A....)
+        //member variables
+        public int iceCubes;
+        public int lemons;
+        public int sugar;
+        public int cups;
+        public int lemonsPerPitcher;
+        public int sugarPerPitcher;
+        public int iceCubesPerPitcher;
+        public int cupsPerPitcher;
+        public double moneyCounter;
+        public int pitcherCounter;
 
-        public double cash;
-        public int Lemons;
-        public int Cups;
-        public int Ice;
-        public int Lemonade;
-        public int Sugar;
-
-
-
-
-        //Constructor(Creator)
-        public Inventory()
+        //construct
+        public Inventory(int sugar, int lemons, int iceCubes, int cups)
         {
-            cash = 20.00;
-            Lemons = 0;
-            Cups = 0;
-            Ice = 0;
-            Lemonade = 0;
-            Sugar = 0;
+            moneyCounter = 20;
+            moneyCounter = Math.Round(moneyCounter, 2);
+            cupsPerPitcher = 5;
+            pitcherCounter = 0;
         }
 
 
 
-        //Methods
-
-        public void DisplayInventory()
+        //methods
+        public int PlanPitchersLemon()
         {
-            Console.WriteLine("Here are the ingredients to choose from:" + Lemons + "Lemons" + Cups + "Cups" + Ice + "Ice" + Sugar + "Sugar");
-
+            Console.WriteLine("How many lemons would you like to place in each pitcher?");
+            while (int.TryParse(Console.ReadLine(), out lemonsPerPitcher))
+            {
+                return lemonsPerPitcher;
+            }
+            return PlanPitchersLemon();
+        }
+        public int PlanPitchersSugar()
+        {
+            Console.WriteLine("How many cups of sugar would you like to place in each pitcher?");
+            while (int.TryParse(Console.ReadLine(), out sugarPerPitcher))
+            {
+                return sugarPerPitcher;
+            }
+            return PlanPitchersSugar();
+        }
+        public int PlanPitchersIce()
+        {
+            Console.WriteLine("How many ice cubes would you like to place in each pitcher?");
+            while (int.TryParse(Console.ReadLine(), out iceCubesPerPitcher))
+            {
+                return iceCubesPerPitcher;
+            }
+            return PlanPitchersIce();
+        }
+        public int MakePitchers()
+        {
+            while (lemons >= lemonsPerPitcher && sugar >= sugarPerPitcher && iceCubes >= iceCubesPerPitcher && cups >= cupsPerPitcher)
+            {
+                lemons -= lemonsPerPitcher;
+                sugar -= sugarPerPitcher;
+                cups -= cupsPerPitcher;
+                iceCubes -= iceCubesPerPitcher;
+                pitcherCounter++;
+            }
+            return pitcherCounter;
         }
     }
 }
+

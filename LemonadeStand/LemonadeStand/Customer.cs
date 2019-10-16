@@ -1,144 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
 namespace LemonadeStand
 {
     public class Customer
     {
-        //Member Variables (Has A.....)
 
-        public int chanceToBuy;
-        public int tempPreference;
-        public int condPreference;
-        public int costPreference;
-        public bool custWillBuy;
-        public int numberToCompare;
-        public bool custDecision;
+        //member variables
+
+        public int temperatureThreshold;
+        public double availableCash;
+        public Random random;
 
 
-
-        //Constructor (Creator)
-
-        
-
-        public Customer()
+        //construct
+        public Customer(Random random)
         {
-            Random rand = new Random();
-            chanceToBuy = rand.Next(40, 61);
-
+            this.random = random;
+            GiveCash();
+            GiveThreshold();
         }
-
-        public void AdjustForWeather(Weather weather)
+        //methods
+        public void GiveThreshold()
         {
-            Random rand = new Random();
-
+            temperatureThreshold = random.Next(60, 90);
         }
-
-
-
-        //Methods
-
-
-
-
-
-
-        public bool CustomerDecision()
+        public void GiveCash()
         {
-            if (chanceToBuy > numberToCompare)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-
-        public void GetCustomerChanceToBuy()
-        {
-            Random random = new Random();
-            chanceToBuy = random.Next(40, 60);
-        }
-
-
-        public void CompareNumberToBuy()
-        {
-            Random random = new Random();
-            numberToCompare = random.Next(1, 100);
-            
-        }
-
-
-        public void AdjustChanceBasedOnTemp(Weather weather)
-        {
-            if (weather.temperature < 50)
-            {
-                chanceToBuy -= 10;
-            }
-            else if (weather.temperature >= 51 && weather.temperature <= 60)
-            {
-                chanceToBuy -= 5;
-            }
-            else if (weather.temperature >= 61 && weather.temperature <= 70)
-            {
-                chanceToBuy += 5;
-            }
-            else if (weather.temperature >= 71 && weather.temperature <= 80)
-            {
-                chanceToBuy += 10;
-            }
-            else if (weather.temperature >= 81 && weather.temperature <= 90)
-            {
-                chanceToBuy += 15;
-            }
-            else
-            {
-                chanceToBuy += 20;
-            }
-        }
-
-
-        public void AdjustChanceBasedOnCond(Weather weather)
-        {
-            if (weather.condition == "Sunny")
-            {
-                chanceToBuy += 20;
-            }
-            else if (weather.condition == "Raining")
-            {
-                chanceToBuy -= 5;
-            }
-            else if (weather.condition == "Foggy")
-            {
-                chanceToBuy += 5;
-            }
-            else if (weather.condition == "Snowing")
-            {
-                chanceToBuy -= 20;
-            }
-            else
-            {
-                chanceToBuy += 20;
-            }
-
-        }
-        public void AdjustCostPreference()
-        {
-            Random rand = new Random();
-            int ProbablityofPurchase = rand.Next(1, 3);
-
-            if(ProbablityofPurchase == 1)
-            {
-                chanceToBuy += 10;
-            }
-            else
-            {
-                chanceToBuy -= 10;
-            }
+            availableCash = random.Next(2, 10) / 10;
         }
     }
 }
+
 
 
 

@@ -1,80 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
     public class Weather
     {
-
-
         //member variables
-
-        public string condition;
         public int temperature;
-        public List<string> weatherTypes;
-
-
-        //Constructor
-
-        public Weather()
+        public string[] conditions;
+        public string condition;
+        Random random;
+        //construct
+        public Weather(Random random)
         {
-            condition = null;
-            temperature = 0;
-            weatherTypes = new List<string>() { "Sunny", "Raining", "Foggy", "Snowing" };
-            GenerateCondition();
-            GenerateTemperature();
+            this.random = random;
         }
-
-
-
-        //Methods
-
-        public void GenerateCondition()
+        //methods
+        public int GenerateTemperature()
         {
-            Random rand = new Random();
-
-            int randomNumber = rand.Next(3);
-            condition = weatherTypes[randomNumber];
+            temperature = random.Next(60, 92);
+            return temperature;
 
         }
-
-
-        public void GenerateTemperature()
+        public string GenerateConditions()
         {
-            Random rand = new Random();
-
-         
-
-            if(condition == "Sunny")
-            {
-                temperature = rand.Next(80, 100);
-
-                Console.WriteLine("Today is Sunny with a temperature of" + temperature);
-            }
-            else if (condition == "Raining")
-            {
-                temperature = rand.Next(65, 70);
-
-                Console.WriteLine("Today is raining with a temperature of" + temperature);
-
-            }
-
-            else if (condition == "Foggy")
-            {
-                temperature = rand.Next(55, 65);
-
-                Console.WriteLine("Today is foggy with a temperature of" + temperature);
-            }
-
-            else if (condition == "Snowing")
-            {
-                temperature = rand.Next(0, 25);
-
-                Console.WriteLine("Today is snowing with a temperature of" + temperature);
-
-            }
-
+            conditions = new string[5];
+            conditions[0] = "Sunny";
+            conditions[1] = "Overcast";
+            conditions[2] = "Rainy";
+            conditions[3] = "Partly Cloudy";
+            conditions[4] = "Storming";
+            int pickConditions = random.Next(conditions.Length);
+            condition = conditions[pickConditions];
+            return condition;
         }
+
 
     }
 }
